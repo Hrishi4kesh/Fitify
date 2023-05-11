@@ -3,15 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/shima/AndroidStudioProjects/Fitify/app/src/main/res/layout/activity_home.xml" value="0.24010416666666667" />
-        <entry key="..\:/Users/shima/AndroidStudioProjects/Fitify/app/src/main/res/layout/activity_settings.xml" value="0.24010416666666667" />
-        <entry key="..\:/Users/shima/AndroidStudioProjects/Fitify/app/src/main/res/layout/activity_statistics.xml" value="0.24010416666666667" />
+        <entry key="..\:/Users/hrishi/AndroidStudioProjects/Fitify/app/src/main/res/layout/activity_home.xml" value="0.24010416666666667" />
+        <entry key="..\:/Users/hrishi/AndroidStudioProjects/Fitify/app/src/main/res/layout/activity_statistics.xml" value="0.24010416666666667" />
         <entry key="..\:/Users/shima/AndroidStudioProjects/MyApplication/fitify/app/src/main/res/layout/activity_home.xml" value="0.2436923148431724" />
       </map>
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+<<<<<<< HEAD
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
+=======
+<<<<<<< HEAD
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+=======
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_X" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+>>>>>>> 7a4fe796da2fd1891353672f2bf5fcb4a7a35e33
+>>>>>>> da3edea9e44843708ff1126a1ef9783f49a79b95
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
