@@ -1,10 +1,13 @@
 package com.example.fitify;
-
 import androidx.appcompat.app.AppCompatActivity;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0cde0467165ab7ea843b799f591d9f0d1635dcbd
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -30,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //mGoogleApiClient.connect();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         GoogleSignInAccount getGoogleAccount;

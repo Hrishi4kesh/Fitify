@@ -23,6 +23,10 @@ import kotlin.jvm.internal.Intrinsics;
 
 public class Home extends AppCompatActivity {
 
+<<<<<<< HEAD
+=======
+    //cmt
+>>>>>>> 0cde0467165ab7ea843b799f591d9f0d1635dcbd
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
