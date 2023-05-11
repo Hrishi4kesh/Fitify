@@ -38,7 +38,7 @@ public class data_retrieve extends AppCompatActivity  {
                             .setAppPackageName("com.google.android.gms")
                             .setDataType(DataType.TYPE_STEP_COUNT_DELTA)
                             .setType(DataSource.TYPE_DERIVED)
-                            .setStreamName("estimated_steps")
+                            .setStreamName("Goal")
                             .build();
                     Calendar cal = Calendar.getInstance();
                     Date now = new Date();
