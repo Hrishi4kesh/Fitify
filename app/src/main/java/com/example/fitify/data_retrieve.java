@@ -30,7 +30,7 @@ public class data_retrieve extends AppCompatActivity  {
 
     GoogleApiClient mGoogleApiClient = new GoogleApiClient.Builder(context)
             .addApi(Fitness.HISTORY_API)
-            .addScope(new Scope(Scopes.FITNESS_ACTIVITY_READ_WRITE))
+            //.addScope(new Scope(Scopes.FITNESS_ACTIVITY_READ_WRITE))
             .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
                 @Override
                 public void onConnected(Bundle bundle) {
