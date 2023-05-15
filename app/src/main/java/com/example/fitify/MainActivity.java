@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         //mGoogleApiClient.connect();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        GoogleSignInAccount getGoogleAccount;
+        //GoogleSignInAccount getGoogleAccount;
 
     }
     private void loadNav_controller(){
