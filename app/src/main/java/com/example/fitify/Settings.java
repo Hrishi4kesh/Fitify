@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
@@ -14,7 +15,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import org.jetbrains.annotations.NotNull;
+
 import kotlin.Lazy;
+import kotlin.jvm.internal.Intrinsics;
 
 
 public class Settings extends Fragment {
@@ -33,8 +37,15 @@ public class Settings extends Fragment {
         super.onCreate(savedInstanceState);
         fitnessViewModel = new ViewModelProvider(this).get(FitnessViewModel.class);
     }
+    public View onCreateView(@NotNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Intrinsics.checkNotNullParameter(inflater, "inflater");
+        View rootView=inflater.inflate(R.layout.fragment_settings,container,false);
+        View stepsTextView=rootView.findViewById(R.id.steps);
+        stepsTextView=rootView.findViewById(R.id.steps);
 
-   /* @Nullable shifted to last */
+
+            return rootView;
+    }
 
     private final void showObjectiveSteps(Context context) throws IllegalAccessException {
         TextView stepsTextView = this.stepsTextView;

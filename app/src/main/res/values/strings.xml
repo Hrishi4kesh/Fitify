@@ -4,4 +4,11 @@
     <string name="welcome_back">Welcome Back</string>
     <string name="fitness_progress">Fitness Progress</string>
     <string name="this_week">This Week</string>
+    <string name="kcal">Kcal</string>
+    <string name="todo">TODO</string>
+    <string name="calories_burned">Calories Burned</string>
+    <string name="_0">0</string>
+    <string name="steps_taken">Steps Taken</string>
+    <string name="steps">Steps</string>
+    <string name="km">Km</string>
 </resources>

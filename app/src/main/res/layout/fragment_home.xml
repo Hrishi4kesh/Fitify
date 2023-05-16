@@ -59,7 +59,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp">
 
@@ -82,14 +82,15 @@
                             android:layout_height="match_parent"
                             android:gravity="left"
                             android:orientation="vertical"
-                            android:paddingRight="40dp">
+                            android:paddingEnd="40dp"
+                            tools:ignore="RtlHardcoded,RtlSymmetry">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="40dp"
                                 android:fontFamily="@font/raleway_bold"
-                                android:text="Calories Burned"
+                                android:text="@string/calories_burned"
                                 android:textColor="#E498B2"
                                 android:textSize="18sp" />
 
@@ -105,14 +106,14 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/roboto_light"
-                                    android:text="0"
+                                    android:text="@string/_0"
                                     android:textSize="24sp" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/roboto_bold"
-                                    android:text="Kcal"
+                                    android:text="@string/kcal"
                                     android:textSize="12sp" />
                             </LinearLayout>
 
@@ -122,7 +123,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
 
-                            android:contentDescription="TODO"
+                            android:contentDescription="@string/todo"
                             android:src="@drawable/calories" />
 
                     </LinearLayout>
@@ -147,14 +148,14 @@
                             android:layout_height="match_parent"
                             android:gravity="left"
                             android:orientation="vertical"
-                            android:paddingRight="40dp">
+                            android:paddingEnd="40dp">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="40dp"
+                                android:layout_marginStart="40dp"
                                 android:fontFamily="@font/raleway_bold"
-                                android:text="Steps Taken"
+                                android:text="@string/steps_taken"
                                 android:textColor="#D5CA6D"
                                 android:textSize="18sp" />
 
@@ -177,7 +178,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/roboto_bold"
-                                    android:text="Steps"
+                                    android:text="@string/steps"
                                     android:textSize="12sp" />
                             </LinearLayout>
 
@@ -187,7 +188,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="8dp"
-                            android:src="@drawable/steps" />
+                            android:src="@drawable/steps"
+                            android:contentDescription="TODO" />
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -211,7 +213,8 @@
                             android:layout_height="match_parent"
                             android:gravity="left"
                             android:orientation="vertical"
-                            android:paddingRight="40dp">
+                            android:paddingRight="40dp"
+                            tools:ignore="RtlHardcoded,RtlSymmetry">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -241,7 +244,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/roboto_bold"
-                                    android:text="Km"
+                                    android:text="@string/km"
                                     android:textSize="12sp" />
                             </LinearLayout>
 
@@ -251,7 +254,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="8dp"
-                            android:src="@drawable/distance" />
+                            android:src="@drawable/distance"
+                            android:contentDescription="TODO" />
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
