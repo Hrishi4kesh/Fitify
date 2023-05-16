@@ -1,23 +1,19 @@
 package com.example.fitify;
-import static androidx.core.content.ContentProviderCompat.requireContext;
-import static java.security.AccessController.getContext;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-public class Setting extends AppCompatActivity {
+public class Settings extends AppCompatActivity {
 
     private TextView stepsTextView;
     private Button changeObjButton;
@@ -49,7 +45,7 @@ public class Setting extends AppCompatActivity {
     }
 
     private void showObjectiveDialog(Context context) {
-        View dialogView = LayoutInflater.from(context).inflate(R.layout.changeObj, null);
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.activity_settings, null);
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context)
                 .setView(dialogView)
                 .setTitle("Select Objective Steps");
