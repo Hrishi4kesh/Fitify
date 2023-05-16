@@ -22,7 +22,7 @@ public class Settings extends AppCompatActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.fragment_settings);
         fitnessViewModel = new ViewModelProvider(this).get(FitnessViewModel.class);
     }
 
@@ -45,7 +45,7 @@ public class Settings extends AppCompatActivity {
     }
 
     private void showObjectiveDialog(Context context) {
-        View dialogView = LayoutInflater.from(context).inflate(R.layout.activity_settings, null);
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.fragment_settings, null);
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context)
                 .setView(dialogView)
                 .setTitle("Select Objective Steps");

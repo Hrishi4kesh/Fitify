@@ -50,14 +50,14 @@ public class MainActivity extends AppCompatActivity {
         View bottomNavigationView= findViewById(R.id.bottomNavigationView);
         Intrinsics.checkNotNullExpressionValue(bottomNavigationView, "findViewById<BottomNavigation.id.bottomNavigationView)");
         this.bottomNavigationView=(BottomNavigationView) bottomNavigationView;
-        NavController navController= ActivityKt.findNavController(this,R.id.nav_controller);
-        NavDestination currentDestination=navController.getCurrentDestination();
-        Integer currentDestinationID=navController !=null?currentDestination.getId():null;
+        NavController nav_controller= ActivityKt.findNavController(this,R.id.my_nav);
+        NavDestination currentDestination=nav_controller.getCurrentDestination();
+        Integer currentDestinationID=nav_controller !=null?currentDestination.getId():null;
         if (currentDestinationID!=null){
-            navController.popBackStack(currentDestinationID,false);
-            navController.navigate(currentDestinationID);
+            nav_controller.popBackStack(currentDestinationID,false);
+            nav_controller.navigate(currentDestinationID);
         }
-        bottomNavigationView.setNextFocusUpId(navController.hashCode());
+        bottomNavigationView.setNextFocusUpId(nav_controller.hashCode());
 
     }
     private void checkPermissionAndRun(int fitActionRequestCode){

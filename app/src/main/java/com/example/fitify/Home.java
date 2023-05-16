@@ -1,37 +1,29 @@
 package com.example.fitify;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
-import android.database.Observable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-
-import com.google.android.gms.fitness.Fitness;
-import com.google.android.gms.fitness.result.DailyTotalResult;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.concurrent.Flow;
-import java.util.concurrent.TimeUnit;
-
 import kotlin.jvm.internal.Intrinsics;
 
-public class Home extends AppCompatActivity {
+public class Home extends Fragment {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
     }
     public View onCreateView(@NotNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Intrinsics.checkNotNullParameter(inflater, "inflater");
-        View rootView = inflater.inflate(R.layout.activity_home, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         View textViewSteps=rootView.findViewById(R.id.steps);
         Intrinsics.checkNotNullExpressionValue(textViewSteps, "rootView.findViewById(R.id.steps)");
 
@@ -46,7 +38,7 @@ public class Home extends AppCompatActivity {
 
         View stepsProgressBar=rootView.findViewById(R.id.stepsProgressBar);
         Intrinsics.checkNotNullExpressionValue(stepsProgressBar, "rootView.findViewById(R.id.stepsProgressBar)");
-        ProgressBar progressBar = findViewById(R.id.stepsProgressBar);
+        ProgressBar progressBar = stepsProgressBar.findViewById(R.id.stepsProgressBar);
         if (progressBar == null) {
             Intrinsics.throwUninitializedPropertyAccessException("stepsProgressBar");
         }
