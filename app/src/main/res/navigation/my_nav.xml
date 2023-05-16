@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_statistics" />
     <fragment
         android:id="@+id/setting_fragment"
-        android:name="com.example.fitify.settings"
+        android:name="com.example.fitify.Settings"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_settings" />
 </navigation>

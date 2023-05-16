@@ -5,6 +5,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.navigation.ActivityKt;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
+import androidx.navigation.ui.BottomNavigationViewKt;
+
 
 import android.app.Activity;
 import android.content.Context;
@@ -31,9 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int TIME_INTERVAL = 2000;
     private long backPressed;
 
-        private  int GOOGLE_FIT_PERMISSIONS_REQUEST_CODE = 1;
-        private BottomNavigationView bottomNavigationView;
-        private  boolean runningQOrLater;
+        private final int GOOGLE_FIT_PERMISSIONS_REQUEST_CODE = 1;
+    private final boolean runningQOrLater;
         private  FitnessOptions fitnessOptions;
         private final String TAG="MainActivity";
 
@@ -47,21 +48,23 @@ public class MainActivity extends AppCompatActivity {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-        GoogleSignInAccount getGoogleAccount;
+        //GoogleSignInAccount getGoogleAccount;
+        loadNav_controller();
 
     }
     private void loadNav_controller(){
         View bottomNavigationView= findViewById(R.id.bottomNavigationView);
-        Intrinsics.checkNotNullExpressionValue(bottomNavigationView, "findViewById<BottomNavigation.id.bottomNavigationView)");
-        this.bottomNavigationView=(BottomNavigationView) bottomNavigationView;
-        NavController nav_controller= ActivityKt.findNavController(this,R.id.my_nav);
+        //Intrinsics.checkNotNullExpressionValue(bottomNavigationView, "findViewById<BottomNavigation.id.bottomNavigationView)");
+        //BottomNavigationView b = (BottomNavigationView) bottomNavigationView;
+        NavController nav_controller= ActivityKt.findNavController(this,R.id.nav_controller_view_tag);
         NavDestination currentDestination=nav_controller.getCurrentDestination();
         assert currentDestination != null;
         int currentDestinationID= currentDestination.getId();
         nav_controller.popBackStack(currentDestinationID,false);
         nav_controller.navigate(currentDestinationID);
-        bottomNavigationView.setNextFocusUpId(nav_controller.hashCode());
 
+        BottomNavigationView navigationView= this.findViewById(R.id.bottomNavigationView);
+        BottomNavigationViewKt.setupWithNavController(navigationView,nav_controller);
     }
     private void checkPermissionAndRun(int fitActionRequestCode){
         if (this.permissionApproved()){
@@ -83,21 +86,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     private GoogleSignInAccount getGoogleAccount(){
-        GoogleSignInAccount fitnessOptions= GoogleSignIn.getAccountForExtension(this,this.fitnessOptions);
-        return fitnessOptions;
+        return GoogleSignIn.getAccountForExtension(this, this.fitnessOptions);
     }
     private boolean permissionApproved(){
-        boolean approved= !this.runningQOrLater || ActivityCompat.checkSelfPermission(this, "android.permission.ACCESS_FINE_LOCATION") == 0;
-        return approved;
+        return !this.runningQOrLater || ActivityCompat.checkSelfPermission(this, "android.permission.ACCESS_FINE_LOCATION") == 0;
     }
     private void requestRuntimePermission(int requestCode){
         boolean shouldProvideRationale=ActivityCompat.shouldShowRequestPermissionRationale(this,"android.permission.ACCESS_FINE_LOCATION");
         //requestCode=0;
         if(shouldProvideRationale){
             Log.i("ContentValues","Displaying permission rationale to provide additional context.");
-            Snackbar.make(findViewById(R.id.setting_fragment), "Permission Denied",Snackbar.LENGTH_LONG).setAction("Settings", view -> {
-               this.getSupportActionBar();
-            }).show();
+            Snackbar.make(findViewById(R.id.setting_fragment), "Permission Denied",Snackbar.LENGTH_LONG).setAction("Settings", view -> this.getSupportActionBar()).show();
         }
         else {
             Log.i("ContentValues", "Requesting permission");
@@ -108,19 +107,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
-        switch (resultCode) {
-            case -1:
-                if (requestCode == this.GOOGLE_FIT_PERMISSIONS_REQUEST_CODE) {
-                    this.loadNav_controller();
-                }
-                break;
-            default:
-                Toast.makeText((Context)this, (CharSequence)"Permission not granted", Toast.LENGTH_LONG).show();
-                this.requestPermission();
+        if (resultCode == -1) {
+            if (requestCode == this.GOOGLE_FIT_PERMISSIONS_REQUEST_CODE) {
+                this.loadNav_controller();
+            }
+        } else {
+            Toast.makeText((Context) this, "Permission not granted", Toast.LENGTH_LONG).show();
+            this.requestPermission();
         }
     }
     public MainActivity(){
-        this.runningQOrLater= Build.VERSION.SDK_INT>=29;
+        this.runningQOrLater= true;
     }
 
 
