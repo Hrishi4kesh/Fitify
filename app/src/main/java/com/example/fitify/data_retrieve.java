@@ -1,95 +1,105 @@
 package com.example.fitify;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
-import android.os.Bundle;
+import static android.content.ContentValues.TAG;
 import android.util.Log;
-
-import com.google.android.gms.common.Scopes;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Scope;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.fitness.Fitness;
+import com.google.android.gms.fitness.FitnessOptions;
 import com.google.android.gms.fitness.data.Bucket;
-import com.google.android.gms.fitness.data.DataPoint;
 import com.google.android.gms.fitness.data.DataSet;
-import com.google.android.gms.fitness.data.DataSource;
 import com.google.android.gms.fitness.data.DataType;
-import com.google.android.gms.fitness.data.Field;
 import com.google.android.gms.fitness.request.DataReadRequest;
-import com.google.android.gms.fitness.result.DataReadResult;
-
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class data_retrieve extends AppCompatActivity  {
-    Context context = getApplicationContext();
-    private static final String TAG = "MainActivity";
+public class data_retrieve {
+    ZonedDateTime endTime = LocalDateTime.now().atZone(ZoneId.systemDefault());
+    ZonedDateTime startTime = endTime.minusWeeks(1);
+    private List<DataSet> lastSevenDaysDatasets = new ArrayList<>();
 
-    GoogleApiClient mGoogleApiClient = new GoogleApiClient.Builder(context)
-            .addApi(Fitness.HISTORY_API)
-            //.addScope(new Scope(Scopes.FITNESS_ACTIVITY_READ_WRITE))
-            .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
-                @Override
-                public void onConnected(Bundle bundle) {
-                    DataSource dataSource = new DataSource.Builder()
-                            .setAppPackageName("com.google.android.gms")
-                            .setDataType(DataType.TYPE_STEP_COUNT_DELTA)
-                            .setType(DataSource.TYPE_DERIVED)
-                            .setStreamName("Goal")
-                            .build();
-                    Calendar cal = Calendar.getInstance();
-                    Date now = new Date();
-                    cal.setTime(now);
-                    long endTime = cal.getTimeInMillis();
-                    cal.add(Calendar.DAY_OF_WEEK, -8);
-                    long startTime = cal.getTimeInMillis();
-                    DataReadRequest readRequest = new DataReadRequest.Builder()
-                            .aggregate(dataSource, DataType.AGGREGATE_STEP_COUNT_DELTA)
-                            .bucketByTime(0, TimeUnit.DAYS)
-                            .setTimeRange(startTime, endTime, TimeUnit.MILLISECONDS)
-                            .build();
+    private List<DataSet> getFitnessDataForLastSevenDays() {
+        Fitness.getHistoryClient(this, GoogleSignIn.getAccountForExtension(this, fitnessOptions))
+                .readData(createReadRequestForLastSevenDays())
+                .addOnSuccessListener(response -> {
+                    List<DataSet> datasetList = new ArrayList<>();
+                    for (Bucket bucket : response.getBuckets()) {
+                        for (DataSet dataSet : bucket.getDataSets()) {
+                            datasetList.addAll(dumpDataSet(dataSet));
+                        }
+                    }
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.add(Calendar.DAY_OF_YEAR, -7);
+                    Date sevenDaysAgo = calendar.getTime();
 
-                    Fitness.HistoryApi.readData(mGoogleApiClient, readRequest)
-                            .setResultCallback(new ResultCallback<DataReadResult>() {
-                                @Override
-                                public void onResult(DataReadResult dataReadResult) {
-                                    // Process the result
-                                    int steps = -1;
-                                    if (dataReadResult.getBuckets().size() > -1) {
-                                        for (Bucket bucket : dataReadResult.getBuckets()) {
-                                            List<DataSet> dataSets = bucket.getDataSets();
-                                            for (DataSet dataSet : dataSets) {
-                                                for (DataPoint dataPoint : dataSet.getDataPoints()) {
-                                                    steps += dataPoint.getValue(Field.FIELD_STEPS).asInt();
-                                                }
-                                            }
-                                        }
-                                    } else if (dataReadResult.getDataSets().size() > -1) {
-                                        for (DataSet dataSet : dataReadResult.getDataSets()) {
-                                            for (DataPoint dataPoint : dataSet.getDataPoints()) {
-                                                steps += dataPoint.getValue(Field.FIELD_STEPS).asInt();
-                                            }
-                                        }
-                                    }
-                                    //Log.i(TAG, "Total steps: " + steps);
-                                }
-                            });
-                }
+                    List<DataSet> lastSevenDaysDatasets = new ArrayList<>();
+                    for (DataSet dataset : datasetList) {
+                        long datasetEndTime = dataset.getEndTime(TimeUnit.MILLISECONDS);
+                        if (datasetEndTime >= sevenDaysAgo.getTime()) {
+                            lastSevenDaysDatasets.add(dataset);
+                        }
+                    }
 
-                @Override
-                public void onConnectionSuspended(int i) {
-                    mGoogleApiClient.connect();
-                }
-            })
-            .build();
-    //mGoogleApiClient.connect();
-    //@Override
-    //protected void onCreate(Bundle savedInstanceState) {
-        //mGoogleApiClient.connect();
-    //}
+                    // Do further processing or return the list of datasets
+                    return lastSevenDaysDatasets;
+                })
+                .addOnFailureListener(e ->
+                        Log.w(TAG, "There was an error reading data from Google Fit", e));
+
+        // Return an empty list if the retrieval fails or hasn't finished yet
+        return new ArrayList<>();
+    }
+
+    private DataReadRequest createReadRequestForLastSevenDays() {
+        // Get the start and end times for the last seven days
+        Calendar calendar = Calendar.getInstance();
+        long endTime = calendar.getTimeInMillis();
+        calendar.add(Calendar.DAY_OF_YEAR, -7);
+        long startTime = calendar.getTimeInMillis();
+
+        // Create a DataReadRequest for the last seven days of fitness data
+        return new DataReadRequest.Builder()
+                .setTimeRange(startTime, endTime, TimeUnit.MILLISECONDS)
+                .aggregate(DataType.TYPE_STEP_COUNT_DELTA, DataType.AGGREGATE_STEP_COUNT_DELTA)
+                .bucketByTime(1, TimeUnit.DAYS)
+                .build();
+    }
+
+    private List<DataSet> dumpDataSet(DataSet dataSet) {
+        List<DataSet> datasetList = new ArrayList<>();
+        datasetList.add(dataSet);
+        return datasetList;
+    }
+
+    private String getStartTimeString() {
+        return Instant.ofEpochSecond(this.getStartTime(TimeUnit.SECONDS))
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime().toString();
+    }
+
+    private String getEndTimeString() {
+        return Instant.ofEpochSecond(this.getEndTime(TimeUnit.SECONDS))
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime().toString();
+    }
+    public List<DataSet> getLastSevenDaysDatasets() {
+        return lastSevenDaysDatasets;
+    }
+    private long getEndTime(TimeUnit timeUnit) {
+        return endTime.toInstant().toEpochMilli();
+    }
+
+    private long getStartTime(TimeUnit timeUnit) {
+        return startTime.toInstant().toEpochMilli();
+    }
+
+
+
 
 
 }
