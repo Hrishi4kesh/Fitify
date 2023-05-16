@@ -14,4 +14,4 @@ Fitify is built with modern technologies, ensuring scalability, and performace.
 
 1) Hrishikesh Bhatt
 2) Himanshi Sharma
-3) Isha Shrivastav  
+3) Isha Shrivastava  
