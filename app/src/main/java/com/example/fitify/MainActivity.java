@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     private void requestPermission(){
-        GoogleSignIn.requestPermissions(this,this.GOOGLE_FIT_PERMISSIONS_REQUEST_CODE,this.getGoogleAccount(),this.fitnessOptions);
+        GoogleSignIn.requestPermissions(this,this.GOOGLE_FIT_PERMISSIONS_REQUEST_CODE,this.getGoogleAccount(), this.fitnessOptions);
     }
     private void fitSignIn(int requestCode){
         if (!GoogleSignIn.hasPermissions((this.getGoogleAccount()),this.fitnessOptions)) {
@@ -93,10 +93,12 @@ public class MainActivity extends AppCompatActivity {
     }
     private void requestRuntimePermission(int requestCode){
         boolean shouldProvideRationale=ActivityCompat.shouldShowRequestPermissionRationale(this,"android.permission.ACCESS_FINE_LOCATION");
-        requestCode=0;
+        //requestCode=0;
         if(shouldProvideRationale){
             Log.i("ContentValues","Displaying permission rationale to provide additional context.");
-            //Snackbar.make(this.findViewById(R.id.setting_fragment), (CharSequence)"Permission Denied", -2).setAction((CharSequence)"Settings").show();
+            Snackbar.make(findViewById(R.id.setting_fragment), "Permission Denied",Snackbar.LENGTH_LONG).setAction("Settings", view -> {
+               this.getSupportActionBar();
+            }).show();
         }
         else {
             Log.i("ContentValues", "Requesting permission");
