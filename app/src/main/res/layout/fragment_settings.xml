@@ -14,10 +14,10 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/raleway_medium"
-            android:text="Settings"
             android:layout_marginStart="35dp"
             android:layout_marginTop="30dp"
+            android:fontFamily="sans-serif"
+            android:text="Settings"
             android:textSize="25sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

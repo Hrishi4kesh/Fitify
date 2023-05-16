@@ -90,7 +90,7 @@
                                 android:layout_marginLeft="40dp"
                                 android:fontFamily="@font/raleway_bold"
                                 android:text="Calories Burned"
-                                android:textColor="@color/calories"
+                                android:textColor="#E498B2"
                                 android:textSize="18sp" />
 
                             <LinearLayout
@@ -121,8 +121,9 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/calories"
-                            android:contentDescription="TODO" />
+
+                            android:contentDescription="TODO"
+                            android:src="@drawable/calories" />
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -154,7 +155,7 @@
                                 android:layout_marginLeft="40dp"
                                 android:fontFamily="@font/raleway_bold"
                                 android:text="Steps Taken"
-                                android:textColor="@color/steps"
+                                android:textColor="#D5CA6D"
                                 android:textSize="18sp" />
 
                             <LinearLayout
@@ -218,7 +219,7 @@
                                 android:layout_marginLeft="40dp"
                                 android:fontFamily="@font/raleway_bold"
                                 android:text="Distance"
-                                android:textColor="@color/distance"
+                                android:textColor="#88CC8A"
                                 android:textSize="18sp" />
 
                             <LinearLayout
@@ -281,14 +282,14 @@
                 android:textSize="36sp"
                 android:fontFamily="@font/roboto_medium"
                 />
+
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Steps"
-                android:textSize="14sp"
                 android:fontFamily="@font/raleway_medium"
-                />
+                android:text="Steps"
+                android:textSize="14sp" />
 
         </LinearLayout>
 
