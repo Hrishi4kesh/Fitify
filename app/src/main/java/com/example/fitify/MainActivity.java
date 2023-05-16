@@ -56,11 +56,10 @@ public class MainActivity extends AppCompatActivity {
         this.bottomNavigationView=(BottomNavigationView) bottomNavigationView;
         NavController nav_controller= ActivityKt.findNavController(this,R.id.my_nav);
         NavDestination currentDestination=nav_controller.getCurrentDestination();
-        Integer currentDestinationID=nav_controller !=null?currentDestination.getId():null;
-        if (currentDestinationID!=null){
-            nav_controller.popBackStack(currentDestinationID,false);
-            nav_controller.navigate(currentDestinationID);
-        }
+        assert currentDestination != null;
+        int currentDestinationID= currentDestination.getId();
+        nav_controller.popBackStack(currentDestinationID,false);
+        nav_controller.navigate(currentDestinationID);
         bottomNavigationView.setNextFocusUpId(nav_controller.hashCode());
 
     }

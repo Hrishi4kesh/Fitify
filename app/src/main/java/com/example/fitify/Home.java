@@ -20,6 +20,7 @@ public class Home extends Fragment {
     @Override
      public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
     public View onCreateView(@NotNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Intrinsics.checkNotNullParameter(inflater, "inflater");
